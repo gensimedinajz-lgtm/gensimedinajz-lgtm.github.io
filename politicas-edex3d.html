@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDEX 3D — Políticas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --dark: #0d0b08;
+    --amber: #c8832a;
+    --amber-light: #e8a94a;
+    --rust: #8b3a1a;
+    --resin-blue: #1a3a5c;
+    --resin-teal: #2a7a6a;
+    --glass: rgba(245,240,232,0.06);
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    background: rgba(13,11,8,0.95);
+    border-bottom: 1px solid rgba(200,131,42,0.15);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 26px; letter-spacing: 4px;
+    color: var(--amber); text-decoration: none;
+  }
+  .nav-logo span { color: var(--cream); }
+  .nav-tabs {
+    display: flex; gap: 4px;
+  }
+  .nav-tab {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    background: none; border: 1px solid transparent;
+    padding: 8px 16px; cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+  .nav-tab:hover, .nav-tab.active {
+    color: var(--amber);
+    border-color: rgba(200,131,42,0.4);
+    background: rgba(200,131,42,0.06);
+  }
+
+  /* HERO STRIP */
+  .policy-hero {
+    padding-top: 100px;
+    padding-bottom: 60px;
+    text-align: center;
+    border-bottom: 1px solid rgba(200,131,42,0.15);
+    background: linear-gradient(180deg, rgba(200,131,42,0.04) 0%, transparent 100%);
+  }
+  .policy-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 6px; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 16px;
+  }
+  .policy-main-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 8vw, 96px);
+    line-height: 0.95; letter-spacing: 2px;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--amber-light) 50%, var(--amber) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+  }
+  .policy-main-sub {
+    font-family: var(--font-serif);
+    font-style: italic; font-size: 18px;
+    color: rgba(245,240,232,0.5);
+    max-width: 500px; margin: 0 auto;
+  }
+
+  /* TAB NAVIGATION */
+  .tab-nav {
+    position: sticky; top: 65px; z-index: 90;
+    display: flex; justify-content: center; gap: 0;
+    background: rgba(13,11,8,0.97);
+    border-bottom: 1px solid rgba(200,131,42,0.15);
+    backdrop-filter: blur(8px);
+  }
+  .tab-btn {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    background: none; border: none; border-bottom: 2px solid transparent;
+    color: rgba(245,240,232,0.45);
+    padding: 18px 36px; cursor: pointer;
+    transition: all 0.3s;
+  }
+  .tab-btn:hover { color: var(--amber-light); }
+  .tab-btn.active {
+    color: var(--amber);
+    border-bottom-color: var(--amber);
+  }
+
+  /* MAIN LAYOUT */
+  .policy-body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 80px 40px 120px;
+  }
+
+  /* POLICY SECTION */
+  .policy-section { display: none; }
+  .policy-section.active { display: block; }
+
+  .policy-section-header {
+    margin-bottom: 60px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(200,131,42,0.2);
+  }
+  .ps-label {
+    font-family: var(--font-mono);
+    font-size: 9px; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 12px;
+    display: block;
+  }
+  .ps-title {
+    font-family: var(--font-display);
+    font-size: clamp(42px, 6vw, 72px);
+    line-height: 1; letter-spacing: 1px;
+    color: var(--cream);
+  }
+  .ps-updated {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 2px;
+    color: rgba(245,240,232,0.3);
+    margin-top: 16px; display: block;
+  }
+
+  /* CONTENT BLOCKS */
+  .policy-block {
+    margin-bottom: 52px;
+  }
+  .block-title {
+    font-family: var(--font-display);
+    font-size: 26px; letter-spacing: 2px;
+    color: var(--amber-light);
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .block-title::before {
+    content: '';
+    display: block; width: 28px; height: 1px;
+    background: var(--amber);
+    flex-shrink: 0;
+  }
+  .block-body {
+    font-family: var(--font-serif);
+    font-size: 17px; line-height: 1.85;
+    color: rgba(245,240,232,0.8);
+  }
+  .block-body p { margin-bottom: 14px; }
+  .block-body p:last-child { margin-bottom: 0; }
+  .block-body strong { color: var(--cream); font-weight: 600; }
+
+  /* INFO CARDS */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .info-card {
+    background: rgba(200,131,42,0.06);
+    border: 1px solid rgba(200,131,42,0.2);
+    padding: 24px;
+  }
+  .info-card-label {
+    font-family: var(--font-mono);
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 8px;
+  }
+  .info-card-value {
+    font-family: var(--font-serif);
+    font-size: 20px; color: var(--cream);
+  }
+  .info-card-sub {
+    font-family: var(--font-mono);
+    font-size: 10px; color: rgba(245,240,232,0.4);
+    margin-top: 4px;
+  }
+
+  /* LIST STYLE */
+  .policy-list {
+    list-style: none;
+    margin: 16px 0;
+  }
+  .policy-list li {
+    font-family: var(--font-serif);
+    font-size: 17px; line-height: 1.7;
+    color: rgba(245,240,232,0.8);
+    padding: 10px 0 10px 28px;
+    position: relative;
+    border-bottom: 1px solid rgba(245,240,232,0.05);
+  }
+  .policy-list li:last-child { border-bottom: none; }
+  .policy-list li::before {
+    content: '›';
+    position: absolute; left: 0;
+    color: var(--amber); font-size: 20px; line-height: 1.4;
+  }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box {
+    background: rgba(200,131,42,0.07);
+    border-left: 3px solid var(--amber);
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+  .highlight-box p {
+    font-family: var(--font-serif);
+    font-size: 17px; line-height: 1.75;
+    color: rgba(245,240,232,0.85);
+    margin: 0;
+  }
+  .highlight-box strong { color: var(--amber-light); }
+
+  /* WARNING BOX */
+  .warning-box {
+    background: rgba(139,58,26,0.12);
+    border-left: 3px solid var(--rust);
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+  .warning-box p {
+    font-family: var(--font-serif);
+    font-size: 16px; line-height: 1.75;
+    color: rgba(245,240,232,0.75);
+    margin: 0;
+  }
+
+  /* DIVIDER */
+  .policy-divider {
+    width: 60px; height: 1px;
+    background: linear-gradient(to right, var(--amber), transparent);
+    margin: 48px 0;
+  }
+
+  /* CONTACT STRIP */
+  .contact-strip {
+    margin-top: 64px;
+    padding: 36px;
+    border: 1px solid rgba(200,131,42,0.25);
+    background: rgba(200,131,42,0.04);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .contact-strip-text {
+    font-family: var(--font-serif);
+    font-size: 18px; color: rgba(245,240,232,0.7);
+  }
+  .contact-strip-text strong { color: var(--cream); }
+  .contact-btn {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    background: var(--amber); color: var(--dark);
+    border: none; padding: 14px 28px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: background 0.3s;
+  }
+  .contact-btn:hover { background: var(--amber-light); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(200,131,42,0.15);
+    padding: 40px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 22px; letter-spacing: 3px;
+    color: var(--amber); text-decoration: none;
+  }
+  .footer-logo span { color: var(--cream); }
+  .footer-copy {
+    font-family: var(--font-mono);
+    font-size: 9px; letter-spacing: 2px;
+    color: rgba(245,240,232,0.3);
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 16px 24px; }
+    .tab-btn { padding: 14px 16px; font-size: 9px; letter-spacing: 2px; }
+    .policy-body { padding: 60px 24px 80px; }
+    .contact-strip { flex-direction: column; }
+    footer { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">EDEX<span>.3D</span></a>
+  <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:rgba(245,240,232,0.35);">POLÍTICAS LEGALES</div>
+</nav>
+
+<!-- HERO -->
+<div class="policy-hero">
+  <p class="policy-eyebrow">EDEX.3D — Documentos Oficiales</p>
+  <h1 class="policy-main-title">POLÍTICAS<br>COMERCIALES</h1>
+  <p class="policy-main-sub">Comprometidos con la transparencia, la calidad y tu seguridad en cada pedido.</p>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('envios')">Política de Envíos</button>
+  <button class="tab-btn" onclick="showTab('devoluciones')">Política de Devoluciones</button>
+  <button class="tab-btn" onclick="showTab('privacidad')">Política de Privacidad</button>
+</div>
+
+<!-- CONTENT -->
+<div class="policy-body">
+
+  <!-- ===================== ENVÍOS ===================== -->
+  <div id="tab-envios" class="policy-section active">
+    <div class="policy-section-header">
+      <span class="ps-label">Política 01 / 03</span>
+      <h2 class="ps-title">POLÍTICA DE<br>ENVÍOS</h2>
+      <span class="ps-updated">Última actualización: Abril 2025 · Versión 1.0</span>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Cobertura y Alcance</h3>
+      <div class="block-body">
+        <p>EDEX.3D realiza envíos exclusivamente dentro de la <strong>República Dominicana</strong>. No se procesan pedidos con destino a otros países ni territorios fuera del territorio nacional dominicano. Esta política responde a nuestra estructura operativa actual, orientada a servir con excelencia al mercado local.</p>
+        <p>Nuestra base operativa se encuentra en <strong>San Juan de la Maguana</strong>, desde donde se gestiona la producción, el empaque y el despacho de todos los pedidos.</p>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-label">Envío Estándar Nacional</div>
+        <div class="info-card-value">RD$200</div>
+        <div class="info-card-sub">5–7 días hábiles</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Envío Express</div>
+        <div class="info-card-value">RD$450</div>
+        <div class="info-card-sub">2–3 días hábiles</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Recogida en Tienda</div>
+        <div class="info-card-value">GRATIS</div>
+        <div class="info-card-sub">Santo Domingo · Coordinación previa</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Pago Contra Entrega</div>
+        <div class="info-card-value">+RD$150</div>
+        <div class="info-card-sub">Disponible en Santo Domingo capital</div>
+      </div>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Tiempos de Procesamiento</h3>
+      <div class="block-body">
+        <p>Todos los productos de EDEX.3D son fabricados bajo demanda mediante impresión 3D en resina fotopolimérica de alta resolución. Por esta razón, los tiempos de entrega incluyen una fase de producción que varía según el tipo de pedido:</p>
+      </div>
+      <ul class="policy-list">
+        <li><strong>Figuras de catálogo estándar:</strong> 3 a 5 días hábiles de producción, más el tiempo de envío seleccionado.</li>
+        <li><strong>Piezas personalizadas (diseño a pedido):</strong> 7 a 14 días hábiles de producción, según la complejidad del modelo. El cliente será informado del plazo exacto al confirmar el pedido.</li>
+        <li><strong>Llaveros y piezas pequeñas:</strong> 2 a 4 días hábiles de producción.</li>
+      </ul>
+      <div class="block-body">
+        <p>El tiempo total de entrega es la suma del período de producción más el tiempo de envío del método elegido. Los plazos comienzan a contar a partir de la <strong>confirmación del pago</strong>.</p>
+      </div>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Confirmación y Seguimiento del Pedido</h3>
+      <div class="block-body">
+        <p>Una vez recibido y verificado el comprobante de pago, EDEX.3D enviará una confirmación del pedido al correo electrónico o número de WhatsApp proporcionado por el cliente, dentro de un plazo máximo de <strong>24 horas hábiles</strong>.</p>
+        <p>Al momento del despacho, se notificará al cliente con la información de seguimiento correspondiente, cuando el servicio de mensajería utilizado lo permita.</p>
+      </div>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Métodos de Pago Aceptados</h3>
+      <div class="block-body">
+        <p>EDEX.3D acepta los siguientes métodos de pago para procesar los pedidos:</p>
+      </div>
+      <ul class="policy-list">
+        <li><strong>Transferencia bancaria:</strong> El cliente debe enviar el comprobante al correo <strong>pagos@edex3d.do</strong> para iniciar el procesamiento del pedido.</li>
+        <li><strong>Pago contra entrega:</strong> Disponible únicamente en Santo Domingo capital, con un cargo adicional de <strong>RD$150</strong> por este servicio.</li>
+        <li>Otros métodos de pago habilitados en la plataforma web oficial de EDEX.3D al momento de la compra.</li>
+      </ul>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Responsabilidad en el Envío</h3>
+      <div class="block-body">
+        <p>EDEX.3D se compromete a empacar cada producto con los materiales adecuados para garantizar su integridad durante el transporte. Sin embargo, una vez el paquete es entregado a la empresa de mensajería, la responsabilidad de custodia recae sobre dicho servicio.</p>
+        <p>En caso de que el producto llegue dañado debido a un manejo inadecuado durante el transporte, el cliente deberá documentar el daño con fotografías al momento de la recepción y contactar a EDEX.3D dentro de las <strong>24 horas siguientes a la entrega</strong> para coordinar la solución correspondiente.</p>
+      </div>
+    </div>
+
+    <div class="warning-box">
+      <p><strong>Nota importante:</strong> EDEX.3D no realiza envíos internacionales bajo ninguna circunstancia. Los pedidos con dirección de entrega fuera de la República Dominicana serán cancelados y el monto abonado será reembolsado íntegramente al cliente.</p>
+    </div>
+
+    <div class="contact-strip">
+      <div class="contact-strip-text">¿Dudas sobre tu envío?<br><strong>Estamos disponibles para orientarte.</strong></div>
+      <a href="https://wa.me/1809000000" class="contact-btn">Contactar por WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- ===================== DEVOLUCIONES ===================== -->
+  <div id="tab-devoluciones" class="policy-section">
+    <div class="policy-section-header">
+      <span class="ps-label">Política 02 / 03</span>
+      <h2 class="ps-title">POLÍTICA DE<br>DEVOLUCIONES</h2>
+      <span class="ps-updated">Última actualización: Abril 2025 · Versión 1.0</span>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Nuestro Compromiso de Calidad</h3>
+      <div class="block-body">
+        <p>En EDEX.3D, la <strong>calidad es el pilar central</strong> de nuestra propuesta de valor. Cada figura y pieza es producida con resina fotopolimérica de grado artístico mediante tecnología SLA/MSLA de alta resolución, inspeccionada y curada antes de ser enviada. Nuestro objetivo es que cada producto supere tus expectativas.</p>
+        <p>Entendemos, sin embargo, que pueden presentarse situaciones excepcionales, y por eso ofrecemos una política de devoluciones justa y clara.</p>
+      </div>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Condiciones para Solicitar una Devolución</h3>
+      <div class="block-body">
+        <p>Se aceptan solicitudes de devolución o cambio únicamente en los siguientes casos:</p>
+      </div>
+      <ul class="policy-list">
+        <li><strong>Producto con defecto de fabricación:</strong> Burbujas, capas incompletas, fracturas o imperfecciones estructurales causadas por el proceso de impresión que afecten la integridad o el acabado del producto.</li>
+        <li><strong>Producto dañado durante el envío:</strong> Piezas rotas, rajadas o deterioradas como consecuencia directa del transporte. Debe documentarse fotográficamente al momento de la recepción.</li>
+        <li><strong>Error en el pedido por parte de EDEX.3D:</strong> Si el producto recibido no corresponde al modelo, tamaño o especificación confirmada en el pedido.</li>
+      </ul>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Plazo para Reclamaciones</h3>
+      <div class="block-body">
+        <p>El cliente dispone de un plazo de <strong>48 horas</strong> a partir de la recepción del producto para notificar cualquier inconveniente a EDEX.3D. Las reclamaciones presentadas fuera de este plazo no podrán ser procesadas.</p>
+        <p>La notificación debe realizarse por los canales oficiales de comunicación de EDEX.3D (correo electrónico o WhatsApp), acompañada de fotografías claras del producto que evidencien el problema reportado.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Proceso de reclamación:</strong> Documenta el problema con fotos → Contacta a EDEX.3D dentro de las 48 horas → Espera confirmación de nuestro equipo (máximo 24 h) → Coordinamos el reenvío, reposición o reembolso según corresponda.</p>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Resolución de Reclamaciones Aceptadas</h3>
+      <div class="block-body">
+        <p>Una vez verificada y aceptada la reclamación, EDEX.3D ofrecerá al cliente una de las siguientes soluciones, a elección del cliente según disponibilidad:</p>
+      </div>
+      <ul class="policy-list">
+        <li><strong>Reposición del producto:</strong> Se producirá y enviará un nuevo ejemplar sin costo adicional para el cliente, con prioridad en la línea de producción.</li>
+        <li><strong>Crédito en tienda:</strong> Acreditamos el valor del producto para ser utilizado en un próximo pedido, con validez de 90 días.</li>
+        <li><strong>Reembolso:</strong> En casos justificados, se procesará la devolución del monto abonado por el producto (excluyendo el costo de envío original), dentro de un plazo de 5 a 10 días hábiles según el método de pago utilizado.</li>
+      </ul>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Casos en que NO Proceden Devoluciones</h3>
+      <div class="block-body">
+        <p>Las siguientes situaciones no son elegibles para devolución o reembolso:</p>
+      </div>
+      <ul class="policy-list">
+        <li>Productos personalizados con diseño aprobado por el cliente, salvo que presenten defectos de fabricación comprobados.</li>
+        <li>Daños causados por mal manejo, caídas o exposición a condiciones inadecuadas por parte del cliente tras la recepción.</li>
+        <li>Insatisfacción estética subjetiva en productos cuyas especificaciones fueron previamente confirmadas y aprobadas por el cliente.</li>
+        <li>Productos cuya reclamación sea presentada después del plazo de 48 horas establecido.</li>
+        <li>Cambios de decisión de compra sin causa justificada, dado que los productos son fabricados bajo demanda.</li>
+      </ul>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Garantía de Satisfacción en Diseños Personalizados</h3>
+      <div class="block-body">
+        <p>Para pedidos con diseño personalizado desde cero, EDEX.3D realizará una <strong>validación previa</strong> del modelo 3D con el cliente antes de iniciar la impresión. Una vez aprobado el diseño por el cliente, se procederá a la fabricación. Este proceso de aprobación previa es la garantía de que el producto final cumplirá con las expectativas acordadas.</p>
+        <p>Cualquier modificación solicitada luego de aprobado el diseño podrá implicar costos adicionales, los cuales serán informados al cliente con anticipación.</p>
+      </div>
+    </div>
+
+    <div class="contact-strip">
+      <div class="contact-strip-text">¿Recibiste un producto con inconvenientes?<br><strong>Contáctanos de inmediato, lo resolveremos.</strong></div>
+      <a href="mailto:info@edex3d.do" class="contact-btn">info@edex3d.do</a>
+    </div>
+  </div>
+
+  <!-- ===================== PRIVACIDAD ===================== -->
+  <div id="tab-privacidad" class="policy-section">
+    <div class="policy-section-header">
+      <span class="ps-label">Política 03 / 03</span>
+      <h2 class="ps-title">POLÍTICA DE<br>PRIVACIDAD</h2>
+      <span class="ps-updated">Última actualización: Abril 2025 · Versión 1.0</span>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Responsable del Tratamiento de Datos</h3>
+      <div class="block-body">
+        <p><strong>EDEX.3D</strong> es el responsable del tratamiento de los datos personales que los clientes y usuarios proporcionan a través de nuestros canales de venta y comunicación, incluyendo la página web oficial, Instagram, WhatsApp y correo electrónico. Nuestra operación tiene base en <strong>San Juan de la Maguana, República Dominicana</strong>.</p>
+      </div>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Información que Recopilamos</h3>
+      <div class="block-body">
+        <p>Al interactuar con EDEX.3D para realizar un pedido, consultar o comunicarte con nuestro equipo, podrías compartir la siguiente información:</p>
+      </div>
+      <ul class="policy-list">
+        <li><strong>Datos de identificación:</strong> Nombre completo del cliente.</li>
+        <li><strong>Datos de contacto:</strong> Número de teléfono o WhatsApp, dirección de correo electrónico.</li>
+        <li><strong>Datos de entrega:</strong> Dirección física de envío dentro de la República Dominicana.</li>
+        <li><strong>Datos del pedido:</strong> Descripción del producto solicitado, especificaciones de personalización, preferencias de diseño compartidas para crear piezas a medida.</li>
+        <li><strong>Datos de pago:</strong> Comprobantes de transferencia bancaria. EDEX.3D no almacena números de tarjetas de crédito ni credenciales bancarias.</li>
+        <li><strong>Datos de navegación:</strong> Información general de uso de nuestra página web (páginas visitadas, dispositivo utilizado), de forma anónima.</li>
+      </ul>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Finalidad del Tratamiento</h3>
+      <div class="block-body">
+        <p>Utilizamos tu información personal exclusivamente para los siguientes fines:</p>
+      </div>
+      <ul class="policy-list">
+        <li>Procesar, producir y entregar los pedidos realizados.</li>
+        <li>Coordinar el diseño personalizado y comunicar avances del proceso de fabricación.</li>
+        <li>Enviar confirmaciones de pedido, notificaciones de despacho y actualizaciones relevantes sobre tu compra.</li>
+        <li>Gestionar solicitudes de devolución, cambio o garantía.</li>
+        <li>Mejorar nuestros productos y servicios a partir del comportamiento general de compra de nuestros clientes.</li>
+        <li>Enviarte comunicaciones sobre nuevos productos, colecciones o promociones, únicamente si has dado tu consentimiento expreso para ello.</li>
+      </ul>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Importante:</strong> EDEX.3D nunca venderá, arrendará ni cederá tu información personal a terceros con fines comerciales propios. Tus datos son utilizados única y exclusivamente para brindarte un mejor servicio.</p>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Compartición de Datos con Terceros</h3>
+      <div class="block-body">
+        <p>EDEX.3D podrá compartir información personal del cliente únicamente con terceros que sean estrictamente necesarios para cumplir con el servicio contratado:</p>
+      </div>
+      <ul class="policy-list">
+        <li><strong>Empresas de mensajería y logística:</strong> Para gestionar la entrega del pedido dentro del territorio nacional dominicano. Solo se comparte el nombre, dirección y número de contacto necesarios para el despacho.</li>
+        <li><strong>Proveedores de servicios tecnológicos:</strong> Plataformas de correo o mensajería utilizadas para la comunicación con el cliente, que cumplen con estándares de seguridad adecuados.</li>
+      </ul>
+      <div class="block-body">
+        <p>No compartimos información personal con plataformas publicitarias, agencias de mercadeo ni otras empresas fuera del alcance operativo descrito anteriormente.</p>
+      </div>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Seguridad de tu Información</h3>
+      <div class="block-body">
+        <p>EDEX.3D adopta medidas razonables para proteger la información personal de sus clientes contra accesos no autorizados, pérdida o uso indebido. Los comprobantes de pago y datos de pedido son tratados de forma confidencial y accesibles únicamente por el personal operativo de EDEX.3D.</p>
+        <p>Sin embargo, ningún sistema de transmisión de datos a través de internet puede garantizar una seguridad absoluta. Te recomendamos no compartir contraseñas ni información bancaria confidencial a través de canales no seguros.</p>
+      </div>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Tus Derechos sobre tus Datos</h3>
+      <div class="block-body">
+        <p>De conformidad con la normativa aplicable en la República Dominicana, tienes derecho a:</p>
+      </div>
+      <ul class="policy-list">
+        <li><strong>Acceder</strong> a los datos personales que EDEX.3D tiene sobre ti.</li>
+        <li><strong>Corregir</strong> información inexacta o incompleta.</li>
+        <li><strong>Solicitar la eliminación</strong> de tus datos cuando ya no sean necesarios para el fin con el que fueron recopilados.</li>
+        <li><strong>Revocar tu consentimiento</strong> para recibir comunicaciones de marketing en cualquier momento, sin que esto afecte tus pedidos en curso.</li>
+        <li><strong>Oponerte</strong> al tratamiento de tus datos para fines distintos a los indicados en esta política.</li>
+      </ul>
+      <div class="block-body">
+        <p>Para ejercer cualquiera de estos derechos, puedes contactarnos directamente a través de nuestros canales oficiales indicados al final de esta página.</p>
+      </div>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Retención de Datos</h3>
+      <div class="block-body">
+        <p>Conservamos los datos personales de los clientes durante el tiempo necesario para cumplir con los fines para los que fueron recopilados, incluyendo el período requerido para resolver posibles reclamaciones o cumplir con obligaciones legales aplicables en la República Dominicana.</p>
+        <p>Los datos de pedidos personalizados (modelos, especificaciones de diseño) pueden ser conservados como referencia de producción interna, sin utilizarse para fines distintos a los indicados en esta política.</p>
+      </div>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Cookies y Tecnologías de Seguimiento</h3>
+      <div class="block-body">
+        <p>Nuestra página web puede utilizar cookies técnicas esenciales para su correcto funcionamiento, así como herramientas de análisis de tráfico de forma anónima y agregada. No utilizamos cookies para rastrear tu comportamiento con fines publicitarios personalizados sin tu consentimiento.</p>
+        <p>Puedes configurar tu navegador para rechazar o eliminar cookies en cualquier momento, aunque esto podría afectar la funcionalidad de algunas secciones de nuestra web.</p>
+      </div>
+    </div>
+
+    <div class="policy-block">
+      <h3 class="block-title">Actualizaciones a esta Política</h3>
+      <div class="block-body">
+        <p>EDEX.3D se reserva el derecho de actualizar esta Política de Privacidad en cualquier momento para reflejar cambios en nuestras prácticas o en la normativa vigente. Cualquier modificación relevante será comunicada a través de nuestra página web y canales oficiales, con indicación de la fecha de última actualización.</p>
+        <p>El uso continuado de nuestros servicios tras la publicación de una versión actualizada implica la aceptación de los nuevos términos.</p>
+      </div>
+    </div>
+
+    <div class="contact-strip">
+      <div class="contact-strip-text">¿Preguntas sobre el uso de tus datos?<br><strong>Tu privacidad es nuestra responsabilidad.</strong></div>
+      <a href="mailto:info@edex3d.do" class="contact-btn">info@edex3d.do</a>
+    </div>
+  </div>
+
+</div><!-- /policy-body -->
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">EDEX<span>.3D</span></a>
+  <div class="footer-copy">© 2025 EDEX 3D — San Juan de la Maguana, R.D. — Todos los derechos reservados</div>
+</footer>
+
+<script>
+  function showTab(tab) {
+    document.querySelectorAll('.policy-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.currentTarget.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop - 65, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
